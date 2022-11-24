@@ -23,7 +23,7 @@ int main(int argc, char** argv){
         std::cout << "Modes:" << std::endl;
         std::cout << "    colored: Print colored image" << std::endl;
         std::cout << "    ascii: Print image as ascii art" << std::endl;
-        std::cout << "    ascii-colored: Print colored image as ascii art" << std::endl;
+        std::cout << "    ascii_colored: Print colored image as ascii art" << std::endl;
 
         return 0;
     }
