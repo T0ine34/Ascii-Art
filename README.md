@@ -5,7 +5,7 @@ This is a simple program that print a JPG image in the console, using Ascii char
 ## Usage
 
 ```bash
-main.exe <image.jpg> <size_multiplier>  
+AsciiArt.exe <image.jpg> <size_multiplier>  
 ```
 
 _size_multiplier_ is an optional parameter, that can be used to scale the image.
