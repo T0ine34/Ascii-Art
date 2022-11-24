@@ -55,6 +55,7 @@ namespace ASCIIArt {
     Table newTable(std::vector<std::vector<char>> table) {
         Table newTable;
         newTable.table = table;
+        return newTable;
     }
 
     Table newTable(std::vector<std::string> table) {
@@ -66,6 +67,7 @@ namespace ASCIIArt {
             }
             newTable.table.push_back(row);
         }
+        return newTable;
     }
 
     Table newTable(std::string string) {
