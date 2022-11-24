@@ -7,4 +7,5 @@
 .gitignore
 .gitattributes
 *.log
-.code-workspace
+*.code-workspace
+Makefile
