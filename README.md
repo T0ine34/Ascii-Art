@@ -18,3 +18,10 @@ _size_multiplier_ is an optional parameter, that can be used to scale the image.
 
 ## Warning !
 - For now, the program only works with JPG images.
+
+# Planned features
+
+- [ ] Add support for other image formats
+- [ ] Add posibility to export the image in a file
+- [ ] Add possibility to choose the number of characters used to print the image
+- [ ] Add possibility to choose the number of colors used to print the image
