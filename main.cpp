@@ -20,6 +20,11 @@ int main(int argc, char** argv){
         std::cout << "Options:" << std::endl;
         std::cout << "    -h, --help: Show this help message" << std::endl;
         std::cout << "    -v, --version: Show version information" << std::endl;
+        std::cout << "Modes:" << std::endl;
+        std::cout << "    colored: Print colored image" << std::endl;
+        std::cout << "    ascii: Print image as ascii art" << std::endl;
+        std::cout << "    ascii-colored: Print colored image as ascii art" << std::endl;
+
         return 0;
     }
 

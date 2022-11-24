@@ -19,11 +19,14 @@ namespace ASCIIArt {
 
     void print(const ColoredTable& table) {
         for (unsigned i = 0; i < table.table.size(); i++) {
+            Pixel::Pixel last = {table.table[i][0].r, table.table[i][0].g, table.table[i][0].b};
             for (unsigned j = 0; j < table.table[i].size(); j++) {
                 //in order to keep the size of the image, we need to print the character twice
-                std::string color = "\033[38;2;" + std::to_string(table.table[i][j].r) + ";" + std::to_string(table.table[i][j].g) + ";" + std::to_string(table.table[i][j].b) + "m";
-                std::string chars = std::string(2, table.table[i][j].c);
-                std::cout << color << chars;                
+                if (last.R != table.table[i][j].r || last.R != table.table[i][j].g || last.B != table.table[i][j].b) {
+                    std::cout << "\033[38;2;" << (int)table.table[i][j].r << ";" << (int)table.table[i][j].g << ";" << (int)table.table[i][j].b << "m";
+                    last = {table.table[i][j].r, table.table[i][j].g, table.table[i][j].b};
+                }
+                std::cout << std::string(2, table.table[i][j].c);                
             }
             std::cout << "\033[0m" << std::endl;
         }
