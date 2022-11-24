@@ -10,9 +10,9 @@ AsciiArt.exe <image.jpg> <mode> <size_multiplier>
 
 ### Modes
 
-- `color` : print the image in color in the console
+- `colored` : print the image in color in the console
 - `ascii` : print the image in ascii characters in the console
-- `ascii_color` : print the image in ascii characters and color in the console
+- `ascii_colored` : print the image in ascii characters and color in the console
 
 _size_multiplier_ is an optional parameter, that can be used to scale the image.
 
