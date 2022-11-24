@@ -11,7 +11,7 @@ namespace ASCIIArt {
     void print(const Table& table) {
         for (unsigned i = 0; i < table.table.size(); i++) {
             for (unsigned j = 0; j < table.table[i].size(); j++) {
-                std::cout << table.table[i][j] << table.table[i][j];
+                std::cout << table.table[i][j] << table.table[i][j] << table.table[i][j];
             }
             std::cout << std::endl;
         }
@@ -19,14 +19,14 @@ namespace ASCIIArt {
 
     void print(const ColoredTable& table) {
         for (unsigned i = 0; i < table.table.size(); i++) {
-            Pixel::Pixel last = {table.table[i][0].r, table.table[i][0].g, table.table[i][0].b};
+            Pixel::Pixel last = {0, 0, 0};
             for (unsigned j = 0; j < table.table[i].size(); j++) {
                 //in order to keep the size of the image, we need to print the character twice
                 if (last.R != table.table[i][j].r || last.R != table.table[i][j].g || last.B != table.table[i][j].b) {
                     std::cout << "\033[38;2;" << (int)table.table[i][j].r << ";" << (int)table.table[i][j].g << ";" << (int)table.table[i][j].b << "m";
                     last = {table.table[i][j].r, table.table[i][j].g, table.table[i][j].b};
                 }
-                std::cout << std::string(2, table.table[i][j].c);                
+                std::cout << std::string(3, table.table[i][j].c);                
             }
             std::cout << "\033[0m" << std::endl;
         }
