@@ -33,6 +33,8 @@ int main(int argc, char** argv){
         return 0;
     }
 
+    std::ios::sync_with_stdio(false);
+
     std::string path = argv[1];
     Image::Image image = Image::newImage(path);
 
