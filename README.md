@@ -8,6 +8,8 @@ This is a simple program that print a JPG image in the console, using Ascii char
 AsciiArt.exe <image.jpg> <mode> <size_multiplier>  
 ```
 
+you can also use the GUI version, just execute the gui.exe file from the console.
+
 ### Modes
 
 - `colored` : print the image in color in the console
@@ -23,5 +25,5 @@ _size_multiplier_ is an optional parameter, that can be used to scale the image.
 
 - [ ] Add support for other image formats
 - [ ] Add posibility to export the image in a file
-- [ ] Add possibility to choose the number of characters used to print the image
+- [x] Add possibility to choose the number of characters used to print the image
 - [ ] Add possibility to choose the number of colors used to print the image
