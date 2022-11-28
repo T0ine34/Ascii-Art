@@ -18,9 +18,11 @@ namespace ASCIIArt {
         char c;
         };
 
-        char fromPixel(const Pixel::Pixel& pixel);
+        std::vector<char>getchars(unsigned n);
 
-        Char fromPixel_Colored(const Pixel::Pixel& pixel);
+        char fromPixel(const Pixel::Pixel& pixel, const std::vector<char>& characters);
+
+        Char fromPixel_Colored(const Pixel::Pixel& pixel, const std::vector<char>& characters);
 
     }
 
@@ -47,9 +49,9 @@ namespace ASCIIArt {
     Table newTable(std::vector<std::string> table);
     Table newTable(std::string table);
     
-    Table fromImage(const Image::Image& image);
+    Table fromImage(const Image::Image& image, unsigned char nb_chars);
 
-    ColoredTable fromImage_Colored(const Image::Image& image);
+    ColoredTable fromImage_Colored(const Image::Image& image, unsigned char nb_chars);
 }
 
 #endif

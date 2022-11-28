@@ -88,48 +88,60 @@ namespace ASCIIArt {
             ' ', '.', ',', ':', ';', 'i', 'l', '!', 'I', '>', '<', '~', '+', '_', '-', '?', ']', '[', '}', '{', '1', ')', '(', '|', '\\', '/', 't', 'f', 'j', 'r', 'x', 'n', 'u', 'v', 'c', 'z', 'X', 'Y', 'U', 'J', 'C', 'L', 'Q', '0', 'O', 'Z', 'm', 'w', 'q', 'p', 'd', 'b', 'k', 'h', 'a', 'o', '*', '#', 'M', 'W', '8', '%', '&', 'B', '@', '$'
             };
 
-        char fromPixel(const Pixel::Pixel& pixel) {
-        //return a character from a pixel
-        
-        //get the average of the pixel
-        unsigned average = (pixel.R + pixel.G + pixel.B) / 3;
-        //scale the average to the range of the characters
-        unsigned index = average / 4;
-        //return the character
-        return chars[index];
+        std::vector<char> getchars(unsigned n) {
+            //return a vector of n chars representing the entire range of chars (take it regularly)
+            if (n == 64) {
+                return chars;
+            }
+            std::vector<char> chars;
+            int space = 64 / n;
+            for (unsigned i = 0; i < n; i++) {
+                chars.push_back(ASCIIArt::Char::chars[i * space]);
+            }
+            return chars;
         }
 
-        Char fromPixel_Colored(const Pixel::Pixel& pixel) {
-        //return a character from a pixel
-        Char c;
-        c.r = pixel.R;
-        c.g = pixel.G;
-        c.b = pixel.B;
-        c.c = fromPixel(pixel);
-        return c;
+        char fromPixel(const Pixel::Pixel& pixel, const std::vector<char>& chars) {
+            //return the char that represents the pixel
+            //the chars are ordered from the darkest to the lightest
+            //the pixel is represented by a number between 0 and 255
+            //the chars are represented by a number between 0 and chars.size() - 1
+            //the pixel is divided by 255 / (chars.size() - 1) to get the char
+            return chars[(int)(pixel.R / (255.0 / (chars.size() - 1)))];
+        }
+
+        Char fromPixel_Colored(const Pixel::Pixel& pixel, const std::vector<char>& chars) {
+            //return a character from a pixel
+            Char c;
+            c.r = pixel.R;
+            c.g = pixel.G;
+            c.b = pixel.B;
+            c.c = fromPixel(pixel, chars);
+            return c;
         }
     }
 
-    Table fromImage(const Image::Image& image) {
+    Table fromImage(const Image::Image& image, unsigned char char_nbr) {
         //return a table from an image
+        std::vector<char> chars = Char::getchars(char_nbr);
         Table table;
         for (unsigned i = 0; i < image.table.size(); i++) {
             std::vector<char> row;
             for (unsigned j = 0; j < image.table[i].size(); j++) {
-                row.push_back(Char::fromPixel(image.table[i][j]));
+                row.push_back(Char::fromPixel(image.table[i][j], chars));
             }
             table.table.push_back(row);
         }
         return table;
     }
 
-    ColoredTable fromImage_Colored(const Image::Image& image) {
+    ColoredTable fromImage_Colored(const Image::Image& image, unsigned char char_nbr) {
         //return a table from an image
         ColoredTable table;
-        for (unsigned i = 0; i < image.table.size(); i++) {
+        for (unsigned i = 0; i < image.table.size(); i++) { 
             std::vector<Char::Char> row;
             for (unsigned j = 0; j < image.table[i].size(); j++) {
-                row.push_back(Char::fromPixel_Colored(image.table[i][j]));
+                row.push_back(Char::fromPixel_Colored(image.table[i][j], Char::getchars(char_nbr)));
             }
             table.table.push_back(row);
         }

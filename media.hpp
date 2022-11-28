@@ -47,7 +47,7 @@ namespace Image{
 
     void insert(Image& image, Pixel::Pixel pixel, unsigned x = -1, unsigned y = -1);
 
-    Image newImage(std::string path);
+    Image newImage(std::string path, unsigned nb_colors = 256);
 
     void resize(Image& image, float coefficient);
 }

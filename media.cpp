@@ -1,8 +1,10 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 #include "media.hpp"
+#include "utility.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -129,10 +131,11 @@ namespace Image{
         }
     }
 
-    Image newImage(std::string path){
+    Image newImage(std::string path, unsigned nb_colors){
         // Open the file, then get all the pixels and put them in a vector of vectors of pixels.
         // Then return the image.
-
+        // nb_colors = 8, 16, 64, 256 colors. You can only use 8, 16, 64, 256 colors. So we need to convert the image to 8, 16, 64, 256 colors.
+        // We can do that by using the median cut algorithm.
         int width, height, channels;
         uint8_t* rgb_image = stbi_load(path.c_str(), &width, &height, &channels, 3);
         std::cout << "Image size: " << width << "x" << height << std::endl;
@@ -142,8 +145,11 @@ namespace Image{
         for (unsigned i = 0; i < height; i++){
             std::vector<Pixel::Pixel> row;
             for (unsigned j = 0; j < width; j++){
-                row.push_back(Pixel::newPixel(rgb_image[i * width * 3 + j * 3], rgb_image[i * width * 3 + j * 3 + 1], rgb_image[i * width * 3 + j * 3 + 2]));
-            }
+                unsigned char R = rgb_image[(i * width + j) * 3 + 0];
+                unsigned char G = rgb_image[(i * width + j) * 3 + 1];
+                unsigned char B = rgb_image[(i * width + j) * 3 + 2];
+                row.push_back(Pixel::newPixel(R, G, B));
+                }
             image.table.push_back(row);
         }
 
@@ -171,5 +177,35 @@ namespace Image{
         }
 
         image.table = newTable;
+    }
+
+    Image copy(const Image& image){
+        Image newImage;
+        for (unsigned i = 0; i < image.table.size(); i++){
+            std::vector<Pixel::Pixel> row;
+            for (unsigned j = 0; j < image.table[i].size(); j++){
+                row.push_back(image.table[i][j]);
+            }
+            newImage.table.push_back(row);
+        }
+        return newImage;
+    }
+
+    void change_colors(Image& image, unsigned char nb_colors){
+
+        //create a vector of all values from 0 to 255
+        std::vector<int> palette;
+        for (int i = 0; i < 256; i++){
+            palette.push_back(i);
+        }
+        palette = round(palette, nb_colors);
+
+        for(unsigned i = 0; i < image.table.size(); i++){
+            for(unsigned j = 0; j < image.table[i].size(); j++){
+                image.table[i][j].R = closer(image.table[i][j].R, palette);
+                image.table[i][j].G = closer(image.table[i][j].G, palette);
+                image.table[i][j].B = closer(image.table[i][j].B, palette);
+            }
+        }
     }
 }
